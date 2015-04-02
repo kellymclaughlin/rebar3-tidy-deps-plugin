@@ -56,19 +56,15 @@ desc() ->
       "~n"
       "    {mydep, github, \"kellymclauglin/mydep.git\", {tag, \"1.0.1\"}}~n"
       "~n"
-      "For private repos the syntax is similar:~n"
-      "~n"
-      "    {myprivatedep, github_private, \"kellymclauglin/mydep.git\", {tag, \"2.0.2\"}}~n"
-      "~n"
       "A version regex of \".*\" is used and the repo name is appended to the "
-      "\"git://github.com/\" URL or \"git@github.com:\" in the case of a private repo."
+      "\"https://github.com/\" URL."
       "Configuration:"
       "~n"
       "Configure the plugin and and set it as a pre hook for the app_discovery and install_deps providers "
       "by adding the following to the rebar.config file:~n"
       "~n"
       "{plugins, [~n"
-      "    {plugin_name, \".*\", {git, \"git://github.com/kellymclaughlin/rebar_prv_tidy_deps.git\", {tag, \"0.0.1\"}}}~n"
+      "    {plugin_name, \".*\", {git, \"https://github.com/kellymclaughlin/rebar_prv_tidy_deps.git\", {tag, \"0.0.1\"}}}~n"
       "]}.~n"
       "{provider_hooks, [{pre, [{app_discovery, tidy_deps}, {install_deps, tidy_deps}]}]}.~n",
       []).
@@ -83,9 +79,7 @@ untidy_deps(Deps) ->
     [begin
          case Dep of
              {Name, github, Repo, Vsn} ->
-                 {Name, ".*", {git, "git://github.com/" ++ Repo, Vsn}};
-             {Name, github_private, Repo, Vsn} ->
-                 {Name, ".*", {git, "git@github.com:" ++ Repo, Vsn}};
+                 {Name, ".*", {git, "https://github.com/" ++ Repo, Vsn}};
              _ ->
                  Dep
          end
