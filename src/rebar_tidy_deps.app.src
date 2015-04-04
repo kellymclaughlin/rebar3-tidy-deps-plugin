@@ -1,4 +1,4 @@
-{application, rebar_prv_tidy_deps, [
+{application, rebar_tidy_deps, [
   {description, "Plugin to enable concise deps specification for common case Erlang projects"},
   {vsn, "0.0.1"},
   {registered, []},
