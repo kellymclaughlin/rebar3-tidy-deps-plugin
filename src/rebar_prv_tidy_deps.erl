@@ -65,6 +65,16 @@ desc() ->
       "~n"
       "{github, \"kellymclauglin/mydep.git\", {tag, \"1.0.1\"}}~n"
       "~n"
+      "There are two additional forms available for cases where the default "
+      "VsnRegex of \".*\" is not suitable. The forms are identical to the "
+      "two forms presented above, but with the desired value for the "
+      "VsnRegex included as the final element in the dependency "
+      "specification tuple.~n"
+      "~n"
+      "    {mydep, github, \"kellymclauglin/mydep.git\", {tag, \"1.0.1\"}, \"1.0.*\"}"
+      "~n"
+      "    {github, \"kellymclauglin/mydep.git\", {tag, \"1.0.1\"}, \"1.0.*\"}"
+      "~n"
       "Configuration:"
       "~n"
       "Configure the plugin and and set it as a pre hook for the app_discovery and install_deps providers "
@@ -92,8 +102,17 @@ untidy_deps(Deps) ->
                      _ ->
                          Dep
                  end;
+             {github, OwnerRepo, Vsn, VsnRegex} ->
+                 case string:tokens(OwnerRepo, [$/]) of
+                     [_, Repo] ->
+                         {filename:rootname(Repo), VsnRegex, {git, "https://github.com/" ++ OwnerRepo, Vsn}};
+                     _ ->
+                         Dep
+                 end;
              {Name, github, Repo, Vsn} ->
                  {Name, ".*", {git, "https://github.com/" ++ Repo, Vsn}};
+             {Name, github, Repo, Vsn, VsnRegex} ->
+                 {Name, VsnRegex, {git, "https://github.com/" ++ Repo, Vsn}};
              _ ->
                  Dep
          end
