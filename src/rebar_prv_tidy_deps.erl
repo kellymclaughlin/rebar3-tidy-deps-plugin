@@ -52,19 +52,26 @@ desc() ->
       "    3. Do not employ any other dependency options such as 'raw'~n"
       "~n"
       "For a dependency that meets these criteria this plugin allows users to "
-      "specify dependencies using the following alternative syntax:~n"
+      "specify dependencies using one of the following alternative syntax options:~n"
       "~n"
       "    {mydep, github, \"kellymclauglin/mydep.git\", {tag, \"1.0.1\"}}~n"
       "~n"
       "A version regex of \".*\" is used and the repo name is appended to the "
-      "\"https://github.com/\" URL."
+      "\"https://github.com/\" URL.~n"
+      "~n"
+      "For cases where the name for the dependency is the same as the "
+      "repository name (e.g. mydep and mydep.git from the previous "
+      "example) the following form can be used:~n"
+      "~n"
+      "{github, \"kellymclauglin/mydep.git\", {tag, \"1.0.1\"}}~n"
+      "~n"
       "Configuration:"
       "~n"
       "Configure the plugin and and set it as a pre hook for the app_discovery and install_deps providers "
       "by adding the following to the rebar.config file:~n"
       "~n"
       "{plugins, [~n"
-      "    {plugin_name, \".*\", {git, \"https://github.com/kellymclaughlin/rebar_prv_tidy_deps.git\", {tag, \"0.0.1\"}}}~n"
+      "    {plugin_name, \".*\", {git, \"https://github.com/kellymclaughlin/rebar_prv_tidy_deps.git\", {tag, \"0.0.2\"}}}~n"
       "]}.~n"
       "{provider_hooks, [{pre, [{app_discovery, tidy_deps}, {install_deps, tidy_deps}]}]}.~n",
       []).
@@ -78,6 +85,13 @@ untidy_default_deps(State) ->
 untidy_deps(Deps) ->
     [begin
          case Dep of
+             {github, OwnerRepo, Vsn} ->
+                 case string:tokens(OwnerRepo, [$/]) of
+                     [_, Repo] ->
+                         {filename:rootname(Repo), ".*", {git, "https://github.com/" ++ OwnerRepo, Vsn}};
+                     _ ->
+                         Dep
+                 end;
              {Name, github, Repo, Vsn} ->
                  {Name, ".*", {git, "https://github.com/" ++ Repo, Vsn}};
              _ ->
