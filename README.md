@@ -15,20 +15,23 @@ specification:
 1. It does not employ any other dependency options such as `raw`
 
 For a dependency that meets these criteria this plugin make it
-possible specify dependencies using the following alternative syntax:
+possible specify dependencies using one of the following alternative
+syntax options:
 
 ```
 {mydep, github, "kellymclauglin/mydep.git", {tag, "1.0.1"}}
 ```
 
-For private repos the syntax is similar:
-
-```
-{myprivatedep, github_private, "kellymclauglin/mydep.git", {tag, "2.0.2"}}
-```
-
 A version regex of `".*"` is used and the repo name is appended to the
 `https://github.com/` URL.
+
+For cases where the name for the dependency is the same as the
+repository name (*e.g.* `mydep` and `mydep.git` from the previous
+example) the following form can be used:
+
+```
+{github, "kellymclauglin/mydep.git", {tag, "1.0.1"}}
+```
 
 The syntax can be used for all of the dependencies for a project or it
 can be used for only selected dependencies. There is no issue with
@@ -43,7 +46,7 @@ to the rebar.config file:
 
 ```
 {plugins, [
-    {rebar_prv_tidy_deps, ".*", {git, "https://github.com/kellymclaughlin/rebar_prv_tidy_deps.git", {tag, "0.0.1"}}}
+    {rebar_prv_tidy_deps, ".*", {git, "https://github.com/kellymclaughlin/rebar_prv_tidy_deps.git", {tag, "0.0.2"}}}
 ]}.
 
 {provider_hooks, [{pre, [{app_discovery, tidy_deps}, {install_deps, tidy_deps}]}]}.
