@@ -33,6 +33,20 @@ example) the following form can be used:
 {github, "kellymclauglin/mydep.git", {tag, "1.0.1"}}
 ```
 
+There are two additional forms available for cases where the default
+`VsnRegex` of `".*"` is not suitable. The forms are identical to the
+two forms presented above, but with the desired value for the
+`VsnRegex` included as the final element in the dependency
+specification tuple.
+
+```
+{mydep, github, "kellymclauglin/mydep.git", {tag, "1.0.1"}, "1.0.*"}
+```
+
+```
+{github, "kellymclauglin/mydep.git", {tag, "1.0.1"}, "1.0.*"}
+```
+
 The syntax can be used for all of the dependencies for a project or it
 can be used for only selected dependencies. There is no issue with
 inter-mingling with deps using the standard specification syntax. It
