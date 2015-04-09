@@ -18,13 +18,13 @@ For a dependency that meets these criteria this plugin make it
 possible specify dependencies using the following alternative syntax:
 
 ```
-{mydep, github, "kellymclauglin/mydep.git", {tag, "1.0.1"}}
+{mydep, {github, "kellymclauglin/mydep.git", {tag, "1.0.1"}}}
 ```
 
 For private repos the syntax is similar:
 
 ```
-{myprivatedep, github_private, "kellymclauglin/mydep.git", {tag, "2.0.2"}}
+{myprivatedep, {github_private, "kellymclauglin/mydep.git", {tag, "2.0.2"}}}
 ```
 
 A version regex of `".*"` is used and the repo name is appended to the
@@ -44,10 +44,8 @@ to the rebar.config file:
 
 ```
 {plugins, [
-    {rebar_prv_tidy_deps, ".*", {git, "git://github.com/kellymclaughlin/rebar_prv_tidy_deps.git", {tag, "0.0.1"}}}
+    {rebar_tidy_deps, ".*", {git, "git://github.com/kellymclaughlin/rebar3-tidy-deps-plugin.git", {tag, "0.0.2"}}}
 ]}.
-
-{provider_hooks, [{pre, [{app_discovery, tidy_deps}, {install_deps, tidy_deps}]}]}.
 ```
 
 ## Example
@@ -66,9 +64,9 @@ The converted syntax would be:
 
 ```
 {deps, [
-        {lager, github, "basho/lager.git", {tag, "2.1.1"}},
-        {hackney, github, "benoitc/hackney.git", {tag, "1.0.6"}},
-        {jsx, github, talentdeficit/jsx", {tag, "v2.5.2"}}
+        {lager, {github, "basho/lager.git", {tag, "2.1.1"}}},
+        {hackney, {github, "benoitc/hackney.git", {tag, "1.0.6"}}},
+        {jsx, {github, talentdeficit/jsx", {tag, "v2.5.2"}}}
        ]}.
 ```
 
@@ -93,7 +91,7 @@ becomes this:
 {profiles, [
             {test, [
                     {deps, [
-                            {meck, github, "eproxus/meck.git", {tag, "0.8.2"}}
+                            {meck, {github, "eproxus/meck.git", {tag, "0.8.2"}}}
                            ]}
                    ]}
            ]}.
