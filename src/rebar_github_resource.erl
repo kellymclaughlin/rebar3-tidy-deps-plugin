@@ -21,6 +21,4 @@ make_vsn(Dir) ->
 
 -spec untidy_dep(tuple()) -> [tuple()].
 untidy_dep({github, Repo, Vsn}) ->
-    {git, "git://github.com/" ++ Repo, Vsn};
-untidy_dep({github_private, Repo, Vsn}) ->
-    {git, "git@github.com:" ++ Repo, Vsn}.
+    {git, "https://github.com/" ++ Repo, Vsn}.

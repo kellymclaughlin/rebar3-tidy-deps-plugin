@@ -21,15 +21,8 @@ possible specify dependencies using the following alternative syntax:
 {mydep, {github, "kellymclauglin/mydep.git", {tag, "1.0.1"}}}
 ```
 
-For private repos the syntax is similar:
-
-```
-{myprivatedep, {github_private, "kellymclauglin/mydep.git", {tag, "2.0.2"}}}
-```
-
 A version regex of `".*"` is used and the repo name is appended to the
-`git://github.com/` URL or `git@github.com:` in the case of a private
-repo.
+`https://github.com/` URL.
 
 The syntax can be used for all of the dependencies for a project or it
 can be used for only selected dependencies. There is no issue with
@@ -44,7 +37,7 @@ to the rebar.config file:
 
 ```
 {plugins, [
-    {rebar_tidy_deps, ".*", {git, "git://github.com/kellymclaughlin/rebar3-tidy-deps-plugin.git", {tag, "0.0.2"}}}
+    {rebar_tidy_deps, ".*", {git, "https://github.com/kellymclaughlin/rebar3-tidy-deps-plugin.git", {tag, "0.0.2"}}}
 ]}.
 ```
 
@@ -54,9 +47,9 @@ If a project's deps specification was the following:
 
 ```
 {deps, [
-        {lager, ".*", {git, "git://github.com/basho/lager.git", {tag, "2.1.1"}}},
-        {hackney, ".*", {git, "git://github.com/benoitc/hackney.git", {tag, "1.0.6"}}},
-        {jsx, ".*", {git, "git://github.com/talentdeficit/jsx", {tag, "v2.5.2"}}}
+        {lager, ".*", {git, "https://github.com/basho/lager.git", {tag, "2.1.1"}}},
+        {hackney, ".*", {git, "https://github.com/benoitc/hackney.git", {tag, "1.0.6"}}},
+        {jsx, ".*", {git, "https://github.com/talentdeficit/jsx", {tag, "v2.5.2"}}}
        ]}.
 ```
 
@@ -79,7 +72,7 @@ This test profile dep specification:
 {profiles, [
             {test, [
                     {deps, [
-                            {meck, ".*", {git, "git://github.com/eproxus/meck.git", {tag, "0.8.2"}}}
+                            {meck, ".*", {git, "https://github.com/eproxus/meck.git", {tag, "0.8.2"}}}
                            ]}
                    ]}
            ]}.
